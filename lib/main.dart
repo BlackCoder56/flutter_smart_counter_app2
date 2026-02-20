@@ -28,7 +28,7 @@ class CounterScreen extends StatefulWidget {
 
 class _CounterScreenState extends State<CounterScreen> { // State class for the counter screen
   int _count = 0; // Initialize the counter value to 0
-
+  
   void _incrementCounter() {
     setState(() {
       _count++;
@@ -54,15 +54,15 @@ class _CounterScreenState extends State<CounterScreen> { // State class for the 
             const SizedBox(height: 20), // Add some spacing between the text and the counter value
             Text(
               "$_count", 
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 84,
                 fontWeight: FontWeight.bold,
-                color: Colors.black54,
+                color: _count < 0 ? Colors.redAccent : Colors.black87,
               ),
             ),
             SizedBox(height: 10),
             Text(
-              "Press the buttons below",
+              "Press the buttons above",
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.black45,
@@ -75,11 +75,24 @@ class _CounterScreenState extends State<CounterScreen> { // State class for the 
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
+            heroTag: "reset",
+            onPressed: (){
+              setState((){
+                _count = 0;
+              });
+            },
+            backgroundColor: Colors.grey,
+            child: const Icon(Icons.refresh, color: Colors.white),
+          ),
+          const SizedBox(width: 14), // Add some spacing between the buttons
+          FloatingActionButton(
             heroTag: "decrease",
             onPressed: (){
               setState(() {
-                if(_count > 0){
-                  _count--;
+                _count--;
+
+                if(_count < 0) {
+                  Colors.redAccent;
                 }
               });
             },
